@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Add New Role</title>
+</head>
+<body>
+
+<h2>Add New Role</h2>
+
+<br>
+
+<style>
+    body {
+        background: rgba(225, 248, 248, 0.55);
+        color: rgba(25, 25, 28, 0.91);
+        font-size: 30px;
+        text-align-last: center;
+    }
+</style>
+
+<form th:method="post" th:action="@{/admin/saveRole}" th:object="${role}"
+      style="font-size: xx-large; font-family: 'Javanese Text',system-ui;outline: dashed">
+    <p>
+        <label for="surname">Role</label>
+        <input type="text" th:field="*{role}" id="surname" required style="background-color: #a4a4a4; font-size: x-large">
+    </p>
+
+    <input type="button" value="back"
+           onclick="window.location.href= 'roles'"
+           style="font-family: 'Segoe UI Symbol',system-ui; color:rgba(2,2,2,0.91); font-size: large; background-color: rgba(129,129,129,0.55)"/>
+
+    <input type="submit" value="OK"
+           style="font-family: 'Segoe UI Symbol',system-ui; color:rgba(2,2,2,0.91); font-size: inherit; background-color: rgba(129,129,129,0.55)">
+
+</form>
+
+<form th:action="@{/logout}" method="POST" th:style="'mix-blend-mode: multiply'">
+    <input type="submit" value="Logout"/>
+
+</form>
+</body>
+</html>

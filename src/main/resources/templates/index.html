@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Welcome Page</title>
+</head>
+<body>
+<h1>Welcome, Login Please!</h1>
+<form th:action="@{/login}" method="POST" th:style="'mix-blend-mode: multiply'">
+    <input type="submit" value="Login"/>
+</form>
+<br>
+<form th:action="@{/logout}" method="POST" th:style="'mix-blend-mode: multiply'">
+    <input type="submit" value="Logout"/>
+</form>
+
+</body>
+</html>

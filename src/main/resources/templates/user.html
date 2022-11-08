@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>User</title>
+</head>
+<body>
+<h1 align="center" style="font-family: 'Javanese Text',system-ui">Welcome to your page <a
+        th:utext="${users.get().firstName}"></a></h1>
+
+<style>table th, table td {
+    padding: 15px;
+    width: 7%;
+}
+</style>
+<style>
+    body {
+        background: rgba(225, 248, 248, 0.55);
+        color: rgba(25, 25, 28, 0.91);
+        font-size: 30px;
+    }
+</style>
+<br>
+<table border="1" cellpadding="5" align="center">
+    <tr style="font-size: 30px; font-style: initial; font-family: 'Segoe UI Black',system-ui">
+        <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <th>ID</th>
+        </div>
+        <!--<th> Id</th>-->
+        <th> Surname</th>
+        <th> Name</th>
+        <th> Email</th>
+        <th> Age</th>
+        <th>Username</th>
+        <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <th>Password</th>
+        </div>
+
+        <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <th>Operations</th>
+        </div>
+
+    </tr>
+    <tr align="center" th:each="user : ${users}">
+        <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <td th:utext="${users.get().id}"></td>
+        </div>
+        <td th:utext="${users.get().lastName}"></td>
+        <td th:utext="${users.get().firstName}"></td>
+        <td th:utext="${users.get().email}"></td>
+        <td th:utext="${users.get().age}"></td>
+        <td th:utext="${users.get().username}"></td>
+        <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <td th:utext="${users.get().password}"></td>
+        </div>
+        <div th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
+            <td align="center">
+                <a th:href="@{/admin/updateUser/{id}(id=${users.get().id})}" style="color: black">Update</a>
+                <b>|</b>
+                <a th:href="@{/admin/deleteUser/{id}(id=${users.get().id})}" style="color: black">Delete</a>
+        </div>
+        </td>
+    </tr>
+</table>
+<form th:action="@{/logout}" method="POST" th:style="'mix-blend-mode: multiply'">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>
+

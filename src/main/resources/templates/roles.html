@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Users</title>
+</head>
+<body>
+<h1 align="center" style="font-family: 'Javanese Text',system-ui">Roles page</h1>
+<style>table th, table td {
+  padding: 4px;
+  width: 4px;
+
+
+}
+</style>
+<style>
+  body {
+    background: rgba(225, 248, 248, 0.55);
+    color: rgba(25, 25, 28, 0.91);
+    font-size: 40px;
+  }
+</style>
+<h3 align="center">
+  <input type="button" value="Add new role"
+         onclick="window.location.href= 'addRole'"
+         style="font-family: 'Segoe UI Symbol',system-ui; color:rgba(2,2,2,0.91); font-size: large; background-color: rgba(129,129,129,0.55)"/>
+  <input type="button" value="back"
+         onclick="window.location.href= 'users'"
+         style="font-family: 'Segoe UI Symbol',system-ui; color:rgba(2,2,2,0.91); font-size: large; background-color: rgba(129,129,129,0.55)"/>
+  <form th:action="@{/logout}" method="POST" th:style="'mix-blend-mode: multiply'">
+    <input type="submit" value="Logout"/>
+  </form>
+</h3>
+
+<br>
+<table border="1" cellpadding="5" align="center">
+  <tr style="font-size: 30px; font-style: initial; font-family: 'Segoe UI Black',system-ui">
+    <th> Id</th>
+    <th> Role</th>
+    <th> Operations</th>
+  </tr>
+  <tr align="center" th:each="role : ${roles}">
+    <td th:utext="${role.getId()}"></td>
+    <td th:utext="${role.getRole()}"></td>
+
+    <td align="center">
+      <a th:href="@{/admin/deleteRole/{id}(id=${role.getId()})}" style="color: black">Delete</a>
+    </td>
+  </tr>
+
+</table>
+</body>
+</html>

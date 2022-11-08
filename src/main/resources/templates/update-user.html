@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Users page</title>
+</head>
+<body>
+<h2>Update User</h2>
+<style>
+    body {
+        background: rgba(225, 248, 248, 0.55);
+        color: rgba(25, 25, 28, 0.91);
+        font-size: 30px;
+        text-align-last: center;
+    }
+</style>
+<br>
+<form th:method="post" th:action="@{/admin/saveUser}" th:object="${users}"
+      style="font-size: xx-large; font-family: 'Javanese Text',ui-serif;outline: dashed">
+
+    <p>
+        <input type="hidden" th:field="*{id}" id="id">
+    </p>
+
+    <p>
+        <label for="surname">Surname</label>
+        <input type="text" th:field="*{lastName}" id="surname" style="background-color: #a4a4a4; font-size: x-large">
+    </p>
+
+    <p>
+        <label for="name">Name:</label>
+        <input type="text" th:field="*{firstName}" id="name" style="background-color: #a4a4a4; font-size: x-large">
+    </p>
+
+
+    <p>
+        <label for="patronymic">Email</label>
+        <input type="email" th:field="*{email}" id="patronymic"
+               style="background-color: #a4a4a4; font-size: x-large">
+    </p>
+
+    <p>
+        <label for="age">Age</label>
+        <input type="text" th:field="*{age}" id="age" style="background-color: #a4a4a4; font-size: x-large">
+    </p>
+
+    <p>
+        <label for="username">Username</label>
+        <input type="text" th:field="*{username}" id="username" required
+               style="background-color: #a4a4a4; font-size: x-large">
+    </p>
+    <p>
+        <label for="password">Password</label>
+        <input type="text" th:field="*{password}" id="password" required
+               style="background-color: #a4a4a4; font-size: x-large">
+    </p>
+    <p>
+        <label for="enabled">Enabled</label>
+        <input type="text" th:field="*{enabled}" id="enabled" style="background-color: #a4a4a4; font-size: x-large">
+    </p>
+
+    <select id="roles" th:field="*{roles}" multiple="multiple" style="font-size: smaller">
+        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.role}"></option>
+    </select>
+
+    <br>
+    <input type="submit" value="OK"
+           style="font-family: 'Segoe UI Symbol',system-ui; color:rgba(2,2,2,0.91); font-size: large; background-color: rgba(129,129,129,0.55)">
+
+</form>
+<form th:action="@{/logout}" method="POST" th:style="'mix-blend-mode: multiply'">
+    <input type="submit" value="Logout"/>
+</form>
+</body>
+</html>
