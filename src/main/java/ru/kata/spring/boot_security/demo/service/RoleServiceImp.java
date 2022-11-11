@@ -4,13 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.entity.Role;
-import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class RoleServiceImp implements RoleService {
@@ -51,13 +47,20 @@ public class RoleServiceImp implements RoleService {
     }
 
     @Override
-    public Optional<Role> findByRole(String role) {
-        Optional<Role> roleOptional = roleRepository.findByRole(role);
-        return roleOptional;
+    public Role findByRole(String role) {
+        return roleRepository.findByRole(role);
+    }
+    @Override
+    public Role getByName(String roleName)  {
+        return roleRepository.findByRole(roleName);
     }
 
     @Override
-    public Optional<Role> getRoles(String role) {
-        return roleRepository.findByRole(role);
+    public Set <Role> getRoles(String [] role) {
+        Set <Role> roles = new HashSet<>();
+        for (String r : role){
+            roles.add(getByName(r));
+        }
+        return roles;
     }
 }

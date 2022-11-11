@@ -31,12 +31,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                 .and()
-                .formLogin().successHandler(successUserHandler)//УКАЗЫВАЕМ НАПРАВЛЕНИЕ ПОСЛЕ РЕГИСТРАЦИИ
+                .formLogin()
+                .loginPage("/")
+                .usernameParameter("email")
+                .successHandler(successUserHandler)//УКАЗЫВАЕМ НАПРАВЛЕНИЕ ПОСЛЕ РЕГИСТРАЦИИ
                 .permitAll()
                 .and()
                 .logout().permitAll()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login");
+                .and()
+                .csrf().disable();
     }
 
     @Bean

@@ -41,9 +41,9 @@ public class SqlPostConstruct {
         roleRepository.save(roleAdmin);
         roleRepository.save(roleUser);
         User user = new User("Alex", "Avlichev", "alex@mail.ru",
-                29, "alex", passwordEncoder.encode("user"), true, roleSet);
+                29, /*"alex",*/ passwordEncoder.encode("user"), true, roleSet);
         User user2 = new User("Maxim", "Gavrilov", "max@mail.ru",
-                20, "max", passwordEncoder.encode("user"), true, Collections.singleton(roleUser));
+                20, /*"max",*/ passwordEncoder.encode("user"), true, Collections.singleton(roleUser));
         usersRepository.save(user);
         usersRepository.save(user2);
     }

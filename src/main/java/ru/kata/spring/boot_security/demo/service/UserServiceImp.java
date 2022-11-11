@@ -28,7 +28,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Autowired
     public UserServiceImp(UsersRepository usersRepository) {
-
         this.usersRepository = usersRepository;
     }
 
@@ -41,10 +40,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void saveUser(User user) {
-        if (usersRepository.findByUsername(user.getUsername()).isPresent()) {
-            usersRepository.save(user);
-        } else
-            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         usersRepository.save(user);
     }
 
@@ -65,19 +61,22 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return usersRepository.findByUsername(username);
+    public User findByEmail(String email) {
+        return usersRepository.findByEmail(email);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = usersRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username " + username + " not found!"));
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user.getRoles()));
+    @Transactional
+    public UserDetails loadUserByUsername(String email) {
+        User user = null;
+        try {
+            user = usersRepository.findByEmail(email);
+        } catch (UsernameNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (user == null) {
+            throw new UsernameNotFoundException(String.format("Email '\s' not found in data base", email));
+        }
+        return user;
     }
-
-    private static Collection<? extends GrantedAuthority> getAuthorities(Set<Role> roles) {
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole())).collect(Collectors.toList());
-    }
-
-
 }

@@ -22,17 +22,11 @@ public class UserWebController {
         this.service = service;
     }
 
-    @GetMapping("/index")
-    public String indexPage() {
-        return "index";
-    }
 
     @GetMapping("/user")
     public String userPage(Model model, Principal principal) {
-        Optional<User> user = service.findByUsername(principal.getName());
-        model.addAttribute("users", user);
+        User user = service.findByEmail(principal.getName());
+        model.addAttribute("user", user);
         return "user";
     }
-
-
 }

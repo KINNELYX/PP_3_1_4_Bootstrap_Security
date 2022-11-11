@@ -16,7 +16,9 @@ public interface RoleService {
 
     void deleteRole(int id);
 
-    Optional<Role> findByRole(String role);
+    Role findByRole(String role);
 
-    Optional<Role> getRoles (String role);
+    Role getByName(String roleName);
+
+    Set <Role> getRoles (String [] role);
 }

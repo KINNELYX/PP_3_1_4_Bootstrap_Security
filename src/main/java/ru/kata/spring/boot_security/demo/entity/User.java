@@ -19,12 +19,10 @@ public class User implements UserDetails {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
     @Column(name = "age")
     private int age;
-    @Column(name = "username")
-    private String username;
     @Column(name = "password")
     private String password;
     @Column(name = "enabled")
@@ -33,12 +31,14 @@ public class User implements UserDetails {
     private Set<Role> roles;
 
 
-    public User(String firstName, String lastName, String email, int age, String username, String password, boolean enabled, Set<Role> roles) {
+
+
+
+    public User(String firstName, String lastName, String email, int age, String password, boolean enabled, Set<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.age = age;
-        this.username = username;
         this.password = password;
         this.enabled = enabled;
         this.roles = roles;
@@ -98,7 +98,7 @@ public class User implements UserDetails {
     }
 
     public String getUsername() {
-        return username;
+        return email;
     }
 
     @Override
@@ -114,10 +114,6 @@ public class User implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return isEnabled();
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override
@@ -147,10 +143,9 @@ public class User implements UserDetails {
                 "id=" + id +
                 ", name='" + firstName + '\'' +
                 ", surname='" + lastName + '\'' +
-                ", patronymic='" + email + '\'' +
+                ", email='" + email + '\'' +
                 ", age=" + age +
                 ", roles=" + roles +
-                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", enabled=" + enabled +
                 '}';
@@ -161,11 +156,11 @@ public class User implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && age == user.age && enabled == user.enabled && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(roles, user.roles) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+        return id == user.id && age == user.age && enabled == user.enabled && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(roles, user.roles) && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, age, roles, username, password, enabled);
+        return Objects.hash(id, firstName, lastName, email, age, roles, password, enabled);
     }
 }
